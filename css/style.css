@@ -12,3 +12,159 @@ html {
 body {
     font-family: sans-serif;
 }
+
+/* field styling */
+
+.search {
+    min-height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.search-container {
+    width: 70%;
+}
+
+.title {
+    margin-bottom: 2rem;
+    font-size: 6rem;
+    text-transform: uppercase;
+
+}
+
+.sub-title {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+}
+
+.meal-input {
+    padding: 1rem;
+    font-size: 2rem;
+    width: 50%;
+
+}
+
+.btn {
+    font-size: 2rem;
+    padding: 1.3rem;
+    text-transform: uppercase;
+    border: none;
+    border-radius: .5rem;
+    color: #fff;
+    transition: all 1s;
+}
+
+/* Search result button styling */
+.btn-select {
+    text-align: center;
+    font-size: 1.2rem;
+    padding: .5rem;
+    text-transform: uppercase;
+    border: none;
+    border-radius: .5rem;
+    color: #fff;
+    transition: all 1s;
+    background-color: rgb(29, 168, 255);
+    
+}
+
+#submit {
+    background-color: rgb(39, 167, 0);
+
+}
+
+#random {
+    background-color: rgb(255, 210, 60);
+
+}
+
+#submit:hover {
+    background-color: rgb(24, 102, 0);
+    cursor: pointer;
+}
+
+#random:hover {
+    background-color: rgb(194, 153, 18);
+    cursor: pointer;
+}
+
+.btn-select:hover {
+    background-color: rgb(0, 127, 206);
+    cursor: pointer;
+}
+
+
+/* Result section styling */
+.results {
+    display: flex;
+    justify-content: center;
+}
+
+.results-container {
+    width: 80%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 1rem;
+}
+
+.search-card {
+    width: 100%;
+    height: 40rem;
+    background-color: #000;
+    text-align: center;
+
+}
+
+.search-pic {
+    width: 100%;
+}
+
+.card-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    color: rgb(255, 208, 0);
+    min-height: 5rem;
+    margin-bottom: 2rem;
+}
+
+.itemID {
+    display: none;
+}
+
+/* Recipe selection styling */
+.selection {
+    /* display: none; */
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.selection-container {
+    width: 80%;
+}
+
+.recipe-title {
+    font-size: 3rem;
+    margin: 2rem 0;
+}
+
+.directions {
+    font-size: 1.6rem;
+}
+
+.ingredients {
+    margin-top: 5rem;
+    display: flex;
+}
+
+.item {
+    display: block;
+    font-size: 1.6rem;
+    background-color: lightgray;
+    padding: 1rem;
+    margin: 1rem;
+}
