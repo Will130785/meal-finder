@@ -228,7 +228,7 @@ submitBtn.addEventListener("click", e => {
     e.preventDefault();
 
     //Make request
-    makeMealRequest();
+    makeMealRequest(e);
 
     //Clear input
     inputText.value = "";
