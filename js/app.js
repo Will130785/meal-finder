@@ -224,6 +224,8 @@ makeRecipeRequest = () => {
 
 //Event listener for submit button
 submitBtn.addEventListener("click", e => {
+    resultContainer.style.display = "block";
+
     //Prevent default submit behaviour
     e.preventDefault();
 
@@ -239,6 +241,8 @@ submitBtn.addEventListener("click", e => {
 inputText.addEventListener("keypress", e => {
     //Check enter key was pressed
     if(e.keyCode === 13) {
+        resultContainer.style.display = "block";
+
         //make request
         makeMealRequest(e);
 
@@ -267,6 +271,8 @@ resultContainer.addEventListener("click", e => {
         recipeID = e.target.nextElementSibling.textContent;
         //make request
         makeRecipeRequest(e);
+
+        resultContainer.style.display = "none";
     }
 
 });
