@@ -3,7 +3,7 @@ const inputText = document.querySelector(".meal-input");
 //Get submit button
 const submitBtn = document.querySelector("#submit");
 //Get random button
-const randonBtn = document.querySelector("#random");
+const randomBtn = document.querySelector("#random");
 //Get result container
 const resultContainer = document.querySelector(".results-container");
 //Get selection container
@@ -43,6 +43,19 @@ class Meal {
         //return response data
         return responseData;
     }
+
+    //Make asynchronous call for random selection
+    async randomRequest() {
+
+        //save response
+        let response = await fetch(`https://www.themealdb.com/api/json/v1/1/random.php`);
+
+        //Convert response from json
+        let responseData = await response.json();
+
+        //Return response data
+        return responseData;
+    }
 }
 
 //UI
@@ -70,7 +83,7 @@ class UI {
         resultContainer.insertAdjacentHTML("beforeend", searchHTML);
     }
 
-    displayRecipe(img, title, desc) {
+    displayRecipe(img, title, desc, ing) {
 
         const recipeHTML = `
         <div class="recipe-card">
@@ -81,7 +94,9 @@ class UI {
             <h3 class="recipe-title">${title}</h3>
             <p class="directions">${desc}</p>
             <div class="ingredients">
-                <span class="item">Soy sauce, 3/4 cup</span>
+                <ul>
+                    ${ing.map(item => `<li class="item">${item}</li>`).join(" ")}
+                </ul>
             </div>
         </div>
     </div>
@@ -122,7 +137,7 @@ makeMealRequest = e => {
             let mealObject = {
                 image: item.strMealThumb,
                 title: item.strMeal,
-                id: item.idMeal
+                id: item.idMeal,
             }
     
     
@@ -136,6 +151,40 @@ makeMealRequest = e => {
 
 };
 
+//Function to invoke method to make random recipe http request
+makeRandomRequest = () => {
+    meal.randomRequest()
+    .then(res => {
+
+        //Get ingredients
+        const ingredients = [];
+
+        //Loop through ingredients and push to ingredients array
+        for(let i = 1; i <= 20; i++) {
+            if(res.meals[0][`strIngredient${i}`]) {
+                ingredients.push(`${res.meals[0][`strIngredient${i}`]} - ${res.meals[0][`strMeasure${i}`]}`);
+            } else {
+                break;
+            }
+        }
+
+        //collect data
+        recipeObject = {
+            image: res.meals[0].strMealThumb,
+            title: res.meals[0].strMeal,
+            description: res.meals[0].strInstructions,
+            ingredients: ingredients
+
+        }
+
+        //clear search results
+        resultContainer.innerHTML = "";
+        //display selection in ui
+        ui.displayRecipe(recipeObject.image, recipeObject.title, recipeObject.description, recipeObject.ingredients);
+        
+    })
+}
+
 //Function to invoke method to make http request for recipe
 makeRecipeRequest = () => {
 
@@ -144,18 +193,31 @@ makeRecipeRequest = () => {
     .then(res => {
         console.log(res);
 
+        //Get ingredients
+        const ingredients = [];
+
+        //Loop through ingredients and push to ingredients array
+        for(let i = 1; i <= 20; i++) {
+            if(res.meals[0][`strIngredient${i}`]) {
+                ingredients.push(`${res.meals[0][`strIngredient${i}`]} - ${res.meals[0][`strMeasure${i}`]}`);
+            } else {
+                break;
+            }
+        }
+
         //collect data
         recipeObject = {
             image: res.meals[0].strMealThumb,
             title: res.meals[0].strMeal,
-            description: res.meals[0].strInstructions
+            description: res.meals[0].strInstructions,
+            ingredients: ingredients
 
         }
 
         //clear search results
         resultContainer.innerHTML = "";
         //display selection in ui
-        ui.displayRecipe(recipeObject.image, recipeObject.title, recipeObject.description);
+        ui.displayRecipe(recipeObject.image, recipeObject.title, recipeObject.description, recipeObject.ingredients);
 
     });
 }
@@ -185,6 +247,14 @@ inputText.addEventListener("keypress", e => {
 
     }
 });
+
+//Event listener for random button
+randomBtn.addEventListener("click", e => {
+    //Prevent default button behaviour
+    e.preventDefault();
+
+    makeRandomRequest();
+})
 
 //Event listener for picking recipe
 resultContainer.addEventListener("click", e => {

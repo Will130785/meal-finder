@@ -162,9 +162,14 @@ body {
 }
 
 .item {
-    display: block;
+    display: inline-block;
     font-size: 1.6rem;
     background-color: lightgray;
     padding: 1rem;
     margin: 1rem;
+}
+
+.recipe-pic {
+    height: 40rem;
+    width: 40rem;
 }
